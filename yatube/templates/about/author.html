@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Об авторе{% endblock %}
+{% block content %}
+  <div class="container py-5">
+    <h1>Немного о моём состоянии</h1>
+    <p>Моё состояние к концу 4 спринта:</p>
+    {% load static %}
+    <img src="{% static 'img/fav/mindfuck.gif' %}">
+  </div>
+{% endblock %}

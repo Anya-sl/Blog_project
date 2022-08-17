@@ -128,7 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Папки, создаваемые средой разработки
+# Development environment folders
 .idea
 .DS_Store
 .AppleDouble
@@ -144,3 +144,9 @@ dmypy.json
 .history/
 
 .mypy_cache
+
+# Static
+yatube/static
+
+# Password recovery emulator
+yatube/sent_emails

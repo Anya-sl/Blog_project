@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Технологии{% endblock %}
+{% block content %}
+  <div class="container py-5">
+    <h1>Какие же технологии были использованы при разработке проекта?</h1>
+    <p>Мне некогда этим заниматься, едва успеваю разобраться в теории.</p>
+    {% load static %}
+      <img src="{% static 'img/fav/sudo.webp' %}" width="400px">
+  </div>
+{% endblock %}

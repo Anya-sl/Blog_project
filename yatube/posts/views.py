@@ -18,7 +18,7 @@ def index(request):
     """Вернуть рендер главной страницы."""
     post_list = Post.objects.select_related('author', 'group').all()
     page_obj = paginate_page(request, post_list)
-    context = {'page_obj': page_obj, }
+    context = {'page_obj': page_obj}
     return render(request, 'posts/index.html', context)
 
 
@@ -47,23 +47,23 @@ def profile(request, username):
 def post_detail(request, post_id):
     """Вернуть рендер страницы с постом."""
     post = get_object_or_404(Post, id=post_id)
-    context = {'post': post, }
+    context = {'post': post}
     return render(request, 'posts/post_detail.html', context)
 
 
 @login_required
 def post_create(request):
     """Создать новый пост пользователя."""
-    if request.method != "POST":
+    if request.method != 'POST':
         form = PostForm()
-        return render(request, 'posts/create_post.html', {'form': form, })
+        return render(request, 'posts/create_post.html', {'form': form})
     form = PostForm(request.POST)
     if form.is_valid():
         post = form.save(commit=False)
         post.author = request.user
         post.save()
         return redirect('posts:profile', post.author)
-    return render(request, 'posts/create_post.html', {'form': form, })
+    return render(request, 'posts/create_post.html', {'form': form})
 
 
 @login_required
@@ -72,12 +72,6 @@ def post_edit(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if request.user != post.author:
         return redirect('posts:post_detail', post.id)
-    if request.method != "POST":
-        form = PostForm(instance=post)
-        context = {'form': form,
-                   'is_edit': True
-                   }
-        return render(request, 'posts/create_post.html', context)
     form = PostForm(request.POST, instance=post)
     if form.is_valid():
         post = form.save(commit=False)

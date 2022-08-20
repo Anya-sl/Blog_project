@@ -32,7 +32,7 @@
               <a class="nav-link link-light
                 {% if view_name  == 'users:password_change' %}
                   active
-                  {% endif %}"
+                {% endif %}"
                 href="{% url 'users:password_change' %}">Изменить пароль
               </a>
             </li>

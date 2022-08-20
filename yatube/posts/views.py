@@ -54,16 +54,14 @@ def post_detail(request, post_id):
 @login_required
 def post_create(request):
     """Создать новый пост пользователя."""
-    if request.method != 'POST':
-        form = PostForm()
-        return render(request, 'posts/create_post.html', {'form': form})
-    form = PostForm(request.POST)
+    form = PostForm(request.POST or None)
     if form.is_valid():
         post = form.save(commit=False)
         post.author = request.user
         post.save()
         return redirect('posts:profile', post.author)
-    return render(request, 'posts/create_post.html', {'form': form})
+    context = {'form': form}
+    return render(request, 'posts/create_post.html', context)
 
 
 @login_required
@@ -72,7 +70,7 @@ def post_edit(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if request.user != post.author:
         return redirect('posts:post_detail', post.id)
-    form = PostForm(request.POST, instance=post)
+    form = PostForm(request.POST or None, instance=post)
     if form.is_valid():
         post = form.save(commit=False)
         post.author = request.user
